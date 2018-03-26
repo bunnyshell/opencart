@@ -19,6 +19,10 @@ exec_once:
         ErrorLog /var/log/apache2/error.log
       </VirtualHost>
  execs:
+  Remove default apache config file:
+   name: Remove default apache config file
+   command: |
+     rm -f /etc/apache2/sites-enabled/000-default.conf
   Run composer install:
    name: Run composer install
    command: |
