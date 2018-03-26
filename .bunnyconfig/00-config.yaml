@@ -8,8 +8,8 @@ exec_once:
     group: root
     content: |
       <VirtualHost *:80>
-        DocumentRoot /var/www/html/opencart
-        <Directory /var/www/html/opencart>
+        DocumentRoot /var/www/html/opencart/upload
+        <Directory /var/www/html/opencart/upload>
           AllowOverride All
           Order Allow,Deny
           Allow from All
@@ -23,12 +23,12 @@ exec_once:
    name: Remove default apache config file
    command: |
      rm -f /etc/apache2/sites-enabled/000-default.conf
-  Run composer install:
-   name: Run composer install
+  Rename configuration files:
+   name: Rename configuration files
    command: |
      #!/usr/bin/env bash
-     export COMPOSER_HOME=/usr/local/bin/.composer
-     /usr/local/bin/composer install
+     mv upload/config-dist.php upload/config.php
+     mv upload/admin/config-dist.php upload/admin/config.php
 post_app_deploy:
  execs:
   Restart apache:
