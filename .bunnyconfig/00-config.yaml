@@ -27,8 +27,13 @@ exec_once:
    name: Rename configuration files
    command: |
      #!/usr/bin/env bash
-     mv upload/config-dist.php upload/config.php
-     mv upload/admin/config-dist.php upload/admin/config.php
+     if test -f upload/config-dist.php; then 
+        mv upload/config-dist.php upload/config.php
+     fi
+
+     if test -f upload/admin/config-dist.php; then 
+        mv upload/admin/config-dist.php upload/admin/config.php
+     fi
 post_app_deploy:
  execs:
   Restart apache:
